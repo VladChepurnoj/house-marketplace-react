@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import OAuth from "../components/OAuth";
 
 import {
   getAuth,
@@ -115,7 +116,7 @@ const SignUp = () => {
             </button>
           </div>
         </form>
-        {/* google oauth */}
+        <OAuth />
 
         <Link className="registerLink" to="/sign-in">
           Sign In instead
