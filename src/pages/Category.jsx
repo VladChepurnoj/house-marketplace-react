@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   collection,
@@ -12,6 +12,7 @@ import {
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
+import ListingItem from "../components/ListingItem";
 
 function Category() {
   const [listings, setListings] = useState(null);
@@ -54,7 +55,7 @@ function Category() {
 
     fetchListings();
   }, [params.categoryName]);
-
+  console.log(listings);
   return (
     <div className="category">
       <header>
@@ -68,15 +69,19 @@ function Category() {
       {loading ? (
         <Spinner />
       ) : listings && listings.length > 0 ? (
-        <>
+        <Fragment>
           <main>
             <ul className="categoryListings">
               {listings.map((listing) => (
-                <h3 key={listing.id}>{listing.data.name}</h3>
+                <ListingItem
+                  listing={listing.data}
+                  id={listing.id}
+                  key={listing.id}
+                />
               ))}
             </ul>
           </main>
-        </>
+        </Fragment>
       ) : (
         <p>No listings for {params.categoryName}</p>
       )}
